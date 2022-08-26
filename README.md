@@ -1,6 +1,6 @@
 # qBittorrent
 
-基于https://github.com/SuperNG6/Docker-qBittorrent-Enhanced-Edition大佬的镜像改编
+基于https://github.com/SuperNG6/Docker-qBittorrent-Enhanced-Edition 大佬的镜像改编
 
 ## Architecture
 ### qBittorrent Enhanced Edition latest
