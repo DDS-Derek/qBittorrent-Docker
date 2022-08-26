@@ -95,6 +95,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Set Version
+        id: set-version
+        run: |
+          echo "::set-output name=version::${GITHUB_REF:10}"
+          echo "ReleaseTag=${GITHUB_REF:10}"
+
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v2
@@ -125,3 +131,12 @@ jobs:
           docker buildx imagetools create -t ddsderek/qbittorrent:latest \
             ddsderek/qbittorrent:latest-amd64 \
             ddsderek/qbittorrent:latest-arm64
+
+      - name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: ddsderek/qbittorrent
+          short-description: qBittorrent
+          readme-filepath: ./README.md
