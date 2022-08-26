@@ -1,5 +1,7 @@
 # qBittorrent
 
+基于https://github.com/SuperNG6/Docker-qBittorrent-Enhanced-Edition大佬的镜像改编
+
 ## Architecture
 ### qBittorrent Enhanced Edition latest
 
@@ -8,7 +10,16 @@
 | x86-64       | latest   |
 | arm64        | latest |
 
+## 特点
+
+1. Auto Ban 迅雷、QQ、百度、Xfplay、DLBT 和离线下载器
+2. *Auto Ban Unknown Peer from China*选项
+3. 自动更新公共跟踪器列表
+4. 自动禁止 BitTorrent 媒体播放器对等选项
+5. 对等白名单/黑名单
+
 ## 部署
+
 ````
 docker -itd  \
     --name=qbittorrentee  \
