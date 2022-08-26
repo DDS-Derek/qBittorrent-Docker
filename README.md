@@ -33,7 +33,7 @@ docker -itd  \
     -v /配置文件位置:/config  \
     -v /下载位置:/downloads  \
     --restart unless-stopped  \
-    superng6/qbittorrentee:latest
+    ddsderek/qbittorrent
 ````
 
 ### docker-compose
@@ -41,7 +41,7 @@ docker -itd  \
 version: "2"
 services:
   qbittorrentee:
-    image: superng6/qbittorrentee
+    image: ddsderek/qbittorrent
     container_name: qbittorrentee
     environment:
       - PUID=1000
