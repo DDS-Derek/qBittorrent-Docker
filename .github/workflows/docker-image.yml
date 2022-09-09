@@ -45,7 +45,7 @@ jobs:
             VERSION=${{ steps.set-version.outputs.version }}
           tags: |
              ddsderek/qbittorrent:${{ steps.set-version.outputs.version }}-amd64
-             ddsderek/qbittorrent:latest-amd64
+
   job2:
     name: buildx arm64
     runs-on: ubuntu-latest
@@ -85,7 +85,7 @@ jobs:
             VERSION=${{ steps.set-version.outputs.version }}
           tags: |
              ddsderek/qbittorrent:${{ steps.set-version.outputs.version }}-arm64
-             ddsderek/qbittorrent:latest-arm64
+
 
   job3:
     needs: [job1, job2]
@@ -125,6 +125,15 @@ jobs:
             ddsderek/qbittorrent:${{ steps.set-version.outputs.version }}-amd64 \
             ddsderek/qbittorrent:${{ steps.set-version.outputs.version }}-arm64
 
+      - name: create latest-amd64 tag
+        run: |
+          docker buildx imagetools create -t ddsderek/qbittorrent:latest-amd64 \
+            ddsderek/qbittorrent:${{ steps.set-version.outputs.version }}-amd64
+
+      - name: create latest-arm64 tag
+        run: |
+          docker buildx imagetools create -t ddsderek/qbittorrent:latest-arm64 \
+            ddsderek/qbittorrent:${{ steps.set-version.outputs.version }}-arm64
 
       - name: create latest tag
         run: |
