@@ -3,22 +3,16 @@
 基于https://github.com/SuperNG6/Docker-qBittorrent-Enhanced-Edition 大佬的镜像改编
 
 ## Architecture
-### qBittorrent Enhanced Edition latest
+### qBittorrent Enhanced Edition && qBittorrent latest
 
 | Architecture | Tag            |
 | ------------ | -------------- |
 | x86-64       | latest   |
 | arm64        | latest |
 
-## 特点
-
-1. Auto Ban 迅雷、QQ、百度、Xfplay、DLBT 和离线下载器
-2. *Auto Ban Unknown Peer from China*选项
-3. 自动更新公共跟踪器列表
-4. 自动禁止 BitTorrent 媒体播放器对等选项
-5. 对等白名单/黑名单
-
 ## 部署
+
+**docker-cli**
 
 ````
 docker -itd  \
@@ -36,7 +30,8 @@ docker -itd  \
     ddsderek/qbittorrent
 ````
 
-### docker-compose
+**docker-compose**
+
 ````
 version: "2"
 services:
@@ -64,11 +59,32 @@ services:
 | `--name=qbittorrentee` |容器名|
 | `-p 8080:8080` |web访问端口 [IP:8080](IP:8080);(默认用户名:admin;默认密码:adminadmin);此端口需与容器端口和环境变量保持一致，否则无法访问|
 | `-p 6881:6881` |BT下载监听端口|
-| `-p 6881:6881/udp` |BT下载DHT监听端口
+| `-p 6881:6881/udp` |BT下载DHT监听端口|
 | `-v /配置文件位置:/config` |qBittorrent配置文件位置|
 | `-v /下载位置:/downloads` |qBittorrent下载位置|
 | `-e WEBUIPORT=8080` |web访问端口环境变量|
 | `-e TZ=Asia/Shanghai` |系统时区设置,默认为Asia/Shanghai|
+| ```-e UMASK_SET=022``` |设置权限掩码|
+| ```-e TL=https://githubraw.sleele.workers.dev/XIU2/TrackersListCollection/master/best.txt``` |TrackersList，可以自定义|
+| ```-e UT=true``` |是否更新TrackersList，推荐开启|
+| ```-e QB_EE_BIN=false``` |是否使用内置[qBittorrent Enhanced Edition](https://github.com/c0re100/qBittorrent-Enhanced-Edition)，默认关闭|
+
+## PUID GUID 说明
+
+当在主机操作系统和容器之间使用卷（`-v`标志）权限问题时，我们通过允许您指定用户`PUID`和组来避免这个问题`PGID`。
+
+确保主机上的任何卷目录都归您指定的同一用户所有，并且任何权限问题都会像魔术一样消失。
+
+在这种情况下`PUID=1000`，`PGID=1000`找到你的用途`id user`如下：
+
+```
+  $ id username
+    uid=1000(dockeruser) gid=1000(dockergroup) groups=1000(dockergroup)
+```
+
+## Umask
+
+具体请阅读[此处。](https://en.wikipedia.org/wiki/Umask)
 
 ## 搜索：
 
