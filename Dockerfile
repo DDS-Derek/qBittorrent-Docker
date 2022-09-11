@@ -1,3 +1,5 @@
+# Build qBittorrent-Enhanced-Edition
+
 FROM lsiobase/alpine:3.15 as builder-qbee
 
 WORKDIR /qbittorrent
@@ -9,6 +11,8 @@ RUN  apk add --no-cache ca-certificates curl
 RUN cd /qbittorrent \
 	&& chmod a+x install.sh \
 	&& bash install.sh
+
+# Build qBittorrent
 
 FROM lsiobase/alpine:3.15 as builder-qb
 
@@ -25,8 +29,14 @@ RUN set -ex \
 FROM lsiobase/alpine:3.12
 
 # environment settings
-ENV TZ=Asia/Shanghai
-ENV WEBUIPORT=8080
+ENV TZ=Asia/Shanghai \
+	WEBUIPORT=8080 \
+	PUID=1000 \
+	PGID=1000 \
+	UMASK_SET=022 \
+    TL=https://githubraw.sleele.workers.dev/XIU2/TrackersListCollection/master/best.txt \
+    UT=true \
+	QB_EE_BIN=false
 
 # add local files and install qbitorrent
 COPY root /
