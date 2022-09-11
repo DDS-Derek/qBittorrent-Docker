@@ -81,8 +81,8 @@ services:
 | `-e WEBUIPORT=8080` |web访问端口环境变量|
 | `-e TZ=Asia/Shanghai` |系统时区设置,默认为Asia/Shanghai|
 | ```-e UMASK_SET=022``` |设置权限掩码|
-| ```-e TL=https://githubraw.sleele.workers.dev/XIU2/TrackersListCollection/master/best.txt``` |TrackersList，可以自定义|
-| ```-e UT=true``` |是否更新TrackersList，推荐开启|
+| ```-e TL=``` |TrackersList，可以自定义|
+| ```-e UT=true``` |是否更新TrackersList，推荐开启，如果自定义了TrackersList，必须开启|
 | ```-e QB_EE_BIN=false``` |是否使用内置[qBittorrent Enhanced Edition](https://github.com/c0re100/qBittorrent-Enhanced-Edition)，默认关闭|
 
 ## PUID GUID 说明
