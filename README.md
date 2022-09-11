@@ -10,6 +10,14 @@
 | x86-64       | latest   |
 | arm64        | latest |
 
+## 命名解释
+
+```4.4.4_4.4.4.10```
+
+```4.4.4```为qBittorrent版本
+
+```4.4.4.10```为qBittorrent Enhanced Edition版本
+
 ## 部署
 
 **docker-cli**
