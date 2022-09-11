@@ -1,10 +1,8 @@
-FROM lsiobase/alpine:3.15 as builder
-LABEL maintainer="SuperNG6"
+FROM lsiobase/alpine:3.15 as builder-qbee
 
 WORKDIR /qbittorrent
 
-COPY install.sh /qbittorrent/
-COPY ReleaseTag /qbittorrent/
+COPY ./install_qbee/* /qbittorrent/
 
 RUN  apk add --no-cache ca-certificates curl
 
@@ -12,7 +10,17 @@ RUN cd /qbittorrent \
 	&& chmod a+x install.sh \
 	&& bash install.sh
 
-# docker qBittorrent-Enhanced-Edition
+FROM lsiobase/alpine:3.15 as builder-qb
+
+WORKDIR /qbittorrent
+
+COPY ./install_qb/* /qbittorrent/
+
+RUN set -ex \
+	&& chmod +x /qbittorrent/install.sh \
+	&& /qbittorrent/install.sh
+
+# docker qBittorrent & qBittorrent-Enhanced-Edition
 
 FROM lsiobase/alpine:3.12
 
@@ -22,11 +30,13 @@ ENV WEBUIPORT=8080
 
 # add local files and install qbitorrent
 COPY root /
-COPY --from=builder  /qbittorrent/qbittorrent-nox   /usr/local/bin/qbittorrent-nox
+COPY --from=builder-qbee  /qbittorrent/qbittorrent-nox   /usr/local/bin/qbittorrentee-nox
+COPY --from=builder-qb  /qbittorrent/qbittorrent-nox   /usr/local/bin/qbittorrent-nox
 
 # install python3
 RUN  apk add --no-cache python3 \
 &&   rm -rf /var/cache/apk/*   \
+&&   chmod a+x  /usr/local/bin/qbittorrentee-nox \
 &&   chmod a+x  /usr/local/bin/qbittorrent-nox  
 
 # ports and volumes
