@@ -165,25 +165,3 @@ jobs:
             ddsderek/qbittorrent:${{ steps.set-version.outputs.version }}-arm64 \
             ddsderek/qbittorrent:${{ steps.set-version.outputs.version }}-armhf
 
-      - name: create latest-amd64 tag
-        run: |
-          docker buildx imagetools create -t ddsderek/qbittorrent:latest-amd64 \
-            ddsderek/qbittorrent:${{ steps.set-version.outputs.version }}-amd64
-
-      - name: create latest-arm64 tag
-        run: |
-          docker buildx imagetools create -t ddsderek/qbittorrent:latest-arm64 \
-            ddsderek/qbittorrent:${{ steps.set-version.outputs.version }}-arm64
-
-      - name: create latest-armhf tag
-        run: |
-          docker buildx imagetools create -t ddsderek/qbittorrent:latest-armhf \
-            ddsderek/qbittorrent:${{ steps.set-version.outputs.version }}-armhf
-
-      - name: create latest tag
-        run: |
-          docker buildx imagetools create -t ddsderek/qbittorrent:latest \
-            ddsderek/qbittorrent:latest-amd64 \
-            ddsderek/qbittorrent:latest-arm64 \
-            ddsderek/qbittorrent:latest-armhf
-
