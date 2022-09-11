@@ -14,13 +14,17 @@
 
 **docker-cli**
 
-````
+````bash
 docker -itd  \
     --name=qbittorrentee  \
     -e WEBUIPORT=8080  \
     -e PUID=1000 \
     -e PGID=1000 \
     -e TZ=Asia/Shanghai \
+    -e UMASK_SET=022 \
+    -e TL=https://githubraw.sleele.workers.dev/XIU2/TrackersListCollection/master/best.txt \
+    -e UT=true \
+    -e QB_EE_BIN=false \
     -p 6881:6881  \
     -p 6881:6881/udp  \
     -p 8080:8080  \
@@ -32,7 +36,7 @@ docker -itd  \
 
 **docker-compose**
 
-````
+````yaml
 version: "2"
 services:
   qbittorrentee:
@@ -42,6 +46,10 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Asia/Shanghai
+      - UMASK_SET=022
+      - TL=https://githubraw.sleele.workers.dev/XIU2/TrackersListCollection/master/best.txt
+      - UT=true
+      - QB_EE_BIN=false
     volumes:
       - /path/to/appdata/config:/config
       - /path/to/downloads:/downloads
