@@ -6,7 +6,7 @@
 ### qBittorrent Enhanced Edition && qBittorrent latest
 
 | Architecture | Tag            |
-| ------------ | -------------- |
+| :----------: | :------------: |
 | x86-64       | latest   |
 | arm64        | latest |
 
@@ -55,7 +55,7 @@ services:
 ## 变量:
 
 |参数|说明|
-|-|:-|
+|:-:|:-:|
 | `--name=qbittorrentee` |容器名|
 | `-p 8080:8080` |web访问端口 [IP:8080](IP:8080);(默认用户名:admin;默认密码:adminadmin);此端口需与容器端口和环境变量保持一致，否则无法访问|
 | `-p 6881:6881` |BT下载监听端口|
