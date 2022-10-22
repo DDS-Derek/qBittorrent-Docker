@@ -1,6 +1,6 @@
 # Build qBittorrent-Enhanced-Edition
 
-FROM lsiobase/alpine:3.15 as builder-qbee
+FROM lsiobase/alpine:3.15 as builder_qbee
 
 WORKDIR /qbittorrent
 
@@ -14,7 +14,7 @@ RUN cd /qbittorrent \
 
 # Build qBittorrent
 
-FROM lsiobase/alpine:3.15 as builder-qb
+FROM lsiobase/alpine:3.15 as builder_qb
 
 WORKDIR /qbittorrent
 
@@ -38,16 +38,13 @@ ENV TZ=Asia/Shanghai \
     UT=true \
 	QB_EE_BIN=false
 
-# add local files and install qbitorrent
-COPY root /
-COPY --from=builder-qbee  /qbittorrent/qbittorrent-nox   /usr/local/bin/qbittorrentee-nox
-COPY --from=builder-qb  /qbittorrent/qbittorrent-nox   /usr/local/bin/qbittorrent-nox
-
 # install python3
-RUN  apk add --no-cache python3 \
-&&   rm -rf /var/cache/apk/*   \
-&&   chmod a+x  /usr/local/bin/qbittorrentee-nox \
-&&   chmod a+x  /usr/local/bin/qbittorrent-nox  
+RUN apk add --no-cache python3 && \
+	rm -rf /var/cache/apk/*
+
+COPY --chmod=755 root /
+COPY --from=builder_qbee --chmod=a+x /qbittorrent/qbittorrent-nox   /usr/local/bin/qbittorrentee-nox
+COPY --from=builder_qb --chmod=a+x /qbittorrent/qbittorrent-nox   /usr/local/bin/qbittorrent-nox
 
 # ports and volumes
 VOLUME /config
