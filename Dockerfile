@@ -43,8 +43,8 @@ RUN apk add --no-cache python3 && \
 	rm -rf /var/cache/apk/*
 
 COPY --chmod=755 root /
-COPY --from=builder_qbee --chmod=a+x /qbittorrent/qbittorrent-nox   /usr/local/bin/qbittorrentee-nox
-COPY --from=builder_qb --chmod=a+x /qbittorrent/qbittorrent-nox   /usr/local/bin/qbittorrent-nox
+COPY --from=builder_qbee --chmod=777 /qbittorrent/qbittorrent-nox   /usr/local/bin/qbittorrentee-nox
+COPY --from=builder_qb --chmod=777 /qbittorrent/qbittorrent-nox   /usr/local/bin/qbittorrent-nox
 
 # ports and volumes
 VOLUME /config
