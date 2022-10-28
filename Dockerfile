@@ -1,6 +1,6 @@
 # Build qBittorrent-Enhanced-Edition
 
-FROM lsiobase/alpine:3.15 as builder_qbee
+FROM ddsderek/foundations:Alpine-S6-Overlay as builder_qbee
 
 WORKDIR /qbittorrent
 
@@ -14,7 +14,7 @@ RUN cd /qbittorrent \
 
 # Build qBittorrent
 
-FROM lsiobase/alpine:3.15 as builder_qb
+FROM ddsderek/foundations:Alpine-S6-Overlay as builder_qb
 
 WORKDIR /qbittorrent
 
@@ -26,7 +26,7 @@ RUN set -ex \
 
 # docker qBittorrent & qBittorrent-Enhanced-Edition
 
-FROM lsiobase/alpine:3.12
+FROM ddsderek/foundations:Alpine-S6-Overlay
 
 # environment settings
 ENV TZ=Asia/Shanghai \
