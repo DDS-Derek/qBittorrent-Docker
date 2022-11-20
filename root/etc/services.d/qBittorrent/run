@@ -5,7 +5,7 @@ UMASK_SET=${UMASK_SET:-022}
 umask "$UMASK_SET"
 
 # 启动qBittorrent
-if [ "$QB_EE_BIN" == "true" ]; then
+if [ "$QB_EE_BIN" == "true" ] || [ "$QB_EE_BIN" == "enable" ]; then
 	exec s6-setuidgid abc qbittorrentee-nox --webui-port=$WEBUIPORT --profile=/config
 else
   	exec s6-setuidgid abc qbittorrent-nox --webui-port=$WEBUIPORT --profile=/config

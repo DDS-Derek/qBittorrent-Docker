@@ -2,5 +2,10 @@
 
 # permissions
 chown -R abc:abc \
-	/config \
-    /downloads
+	/config
+
+if [[ -d /downloads ]]; then
+    if [[ "$(stat -c '%U' /downloads)" != "abc" ]]; then
+        chown -R abc:abc /downloads
+    fi
+fi
