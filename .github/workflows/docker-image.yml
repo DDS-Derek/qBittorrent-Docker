@@ -6,7 +6,7 @@ on:
 
 jobs:
 
-  job1:
+  amd64:
     name: buildx amd64
     runs-on: ubuntu-latest
     steps:
@@ -46,8 +46,8 @@ jobs:
           tags: |
              ddsderek/qbittorrent:${{ steps.set-version.outputs.version }}-amd64
 
-  job2:
-    name: buildx arm64
+  arm:
+    name: buildx arm
     runs-on: ubuntu-latest
     steps:
       - 
@@ -79,16 +79,16 @@ jobs:
           context: .
           file: Dockerfile
           platforms: |
-            linux/arm64
+            linux/arm/v7
           push: true
           build-args: |
             VERSION=${{ steps.set-version.outputs.version }}
           tags: |
-             ddsderek/qbittorrent:${{ steps.set-version.outputs.version }}-arm64
+             ddsderek/qbittorrent:${{ steps.set-version.outputs.version }}-arm
 
 
   job3:
-    needs: [job1, job2]
+    needs: [amd64, arm]
     name: version tag
     runs-on: ubuntu-latest
     steps:
@@ -123,7 +123,7 @@ jobs:
         run: |
           docker buildx imagetools create -t ddsderek/qbittorrent:${{ steps.set-version.outputs.version }} \
             ddsderek/qbittorrent:${{ steps.set-version.outputs.version }}-amd64 \
-            ddsderek/qbittorrent:${{ steps.set-version.outputs.version }}-arm64
+            ddsderek/qbittorrent:${{ steps.set-version.outputs.version }}-arm
 
       - name: create latest-amd64 tag
         run: |
@@ -132,14 +132,14 @@ jobs:
 
       - name: create latest-arm64 tag
         run: |
-          docker buildx imagetools create -t ddsderek/qbittorrent:latest-arm64 \
-            ddsderek/qbittorrent:${{ steps.set-version.outputs.version }}-arm64
+          docker buildx imagetools create -t ddsderek/qbittorrent:latest-arm \
+            ddsderek/qbittorrent:${{ steps.set-version.outputs.version }}-arm
 
       - name: create latest tag
         run: |
           docker buildx imagetools create -t ddsderek/qbittorrent:latest \
             ddsderek/qbittorrent:latest-amd64 \
-            ddsderek/qbittorrent:latest-arm64
+            ddsderek/qbittorrent:latest-arm
 
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v2
